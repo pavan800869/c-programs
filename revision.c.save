@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+// //Write a program to implement pointer to structure
+// #include <stdio.h>
+// struct student{
+//     char name[20];
+//     int rollno;
+//     float marks;
+//     }; //structure declaration
+// int main(){
+//     struct student s1, *ptr = &s1;//pointer initialization and address of the first
+//     printf("Enter details for Student 1:\n");
+//     scanf("%s", ptr->name);
+//     scanf("%d %f",&ptr->rollno,&ptr->marks);
+//     //print structure details
+//     printf("The student details are: ");
+//     printf("%s\n%d\n%f",ptr->name,ptr->rollno,ptr->marks);
+// }
+
+//Stack implementation
+
+// Dymamic memory allocation
+// #include <stdio.h>
+// #include <stdlib.h>
+// int main(){
+//     int *ptr,n,i,sum=0;
+//     printf("Enter the number of elemnets: \n");
+//     scanf("%d",&n);
+//     ptr = (int *)malloc(n*sizeof(int));
+//     if(ptr == NULL){
+//         printf("Unable to allocate memory");
+//         exit(0);
+//     }
+//     printf("Enter elements of array:\n");
+//     for(i=0;i<n;i++){
+//         scanf("%d",&ptr[i]);
+//         sum+=*(ptr+i);
+//     }
+//     free(ptr);//freeing dynamic allocated space from stack
+//     printf("Sum = %d",sum);
+//     return 0;
+// }
+
+// call by reference 
+// #include <stdio.h>
+// struct employee{
+//     char name[20];
+//     int age;
+//     char designation[15];
+// };
+// void print_struct(struct employee *);
+// int main(){
+//     struct employee dev = {"Pavan",30,"Manager"};
+//     print_struct(&dev);    
+// return 0;
+// }
+// void print_struct(struct employee *e) {
+//     printf("\tName:%s Age:%d Designation:%s ", e -> name , e->age, e -> designation);
+// }
+
+// linear search operations
+// #include <stdio.h>
+// int search(int arr[],int n,int x){
+//     int i;
+//     for(i=0;i<n;i++)
+//     if((arr[i])==x)//using pointer arithmetic
+//     return i;
+// return -1;
+// }
+// int main(){
+//     int a[20],n,i,x;
+//     printf("Enter the no of elements: \n");
+//     scanf("%d",&n);
+//     printf("Enter the elements:\n");
+//     for(i=0;i<n;i++)
+//         scanf("%d",&a[i]);
+//     printf("Enter the element to search:\n");
+//     scanf("%d",&x);
+//     int result = search(a,n,x);
+//     (result == -1)?printf("Element not found"):printf("Element found at index %d",i);
+
+// return 0;
+// }
+// To implement the binary search
+int b_search(int n,int arr[],int x)
+{
+    int beg,end,i,mid;
+    beg = 0;
+    end = n;
+    mid = (beg+end)/2;
+    while(beg<end){
+        if(arr[mid]<x){
+            beg = mid+1;
+            mid = (beg+end)/2;
+        }
+        else if(arr[mid] == x){
+            return mid;
+        }
+        else{
+            end = mid+1;
+            mid = (beg+end)/2;
+        }
+    }
+return -1;
+}
+int main(){
+    int i,n,a[25],x;
+    printf("Enter the no of elements:\n");
+    scanf("%d",&n);
+    printf("Enter the elements of the array in ascending order:\n");
+    for(i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    printf("Enter the element to be searched: ");
+    scanf("%d",&x);
+	int result = b_search(n,a,x);
+    if(result == -1)
+        printf("The element is not found");
+    else 
+        printf("Element found at index %d",result);
+
+return 0;    
+}
