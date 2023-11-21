@@ -71,6 +71,7 @@ void preorder(struct bstnode *t){
         preorder(t->rt);
     }
 }
+
 void postorder(struct bstnode *t){
     if(t!=NULL){
         postorder(t->lt);
