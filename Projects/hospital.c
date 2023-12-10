@@ -13,7 +13,7 @@ struct node* head = NULL;
 
 void insert();
 void display();
-void delete ();
+void delete_selected();
 void insert_f();
 void search(int key);
 
@@ -21,7 +21,7 @@ int main() {
     int ch, key;
     while (true) {
         printf("------------------------------------------------------------");
-        printf("\n1.Insert\n2.Insert Front\n3.Display\n4.Delete\n5.Search\n6.Exit\n");
+        printf("\n1.Patient registration\n2.Add patient\n3.Display patient records\n4.Delete the patient record\n5.Search for patient record\n6.Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &ch);
 
@@ -36,7 +36,7 @@ int main() {
                 display();
                 break;
             case 4:
-                delete();
+                delete_selected();
                 break;
 
             case 5:
@@ -106,27 +106,32 @@ void display() {
     }
 }
 
-void delete() {
-    struct node* ptr;
+void delete_selected() {
+    int target_id;
+    printf("Enter the ID of the node to delete: ");
+    scanf("%d", &target_id);
+
+    struct node* ptr = head;
     struct node* prev = NULL;
 
-    if (head == NULL) {
-        printf("There are no variables in the linked list!\n");
-    } else {
-        ptr = head;
-        while (ptr->next != NULL) {
-            prev = ptr;
-            ptr = ptr->next;
-        }
-
-        if (prev != NULL) {
-            prev->next = NULL;
-            free(ptr);
-        } else {
-            free(head);
-            head = NULL;
-        }
+    while (ptr != NULL && ptr->id != target_id) {
+        prev = ptr;
+        ptr = ptr->next;
     }
+
+    if (ptr == NULL) {
+        printf("Node with ID %d not found!\n", target_id);
+        return;
+    }
+
+    if (prev != NULL) {
+        prev->next = ptr->next;
+    } else {
+        head = ptr->next;
+    }
+
+    free(ptr);
+    printf("Node with ID %d deleted successfully!\n", target_id);
 }
 
 void search(int key){
@@ -134,7 +139,7 @@ void search(int key){
     ptr = head;
     while(ptr->next != NULL){
         if (ptr->id == key){
-            printf("Id: %d", ptr->id);
+            printf("\nId: %d", ptr->id);
             printf("Name: %s", ptr->name);
             break;
         }
